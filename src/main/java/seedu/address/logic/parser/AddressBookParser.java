@@ -15,10 +15,15 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
+ *
+ * I have mostly followed the tutorial code (given in the github commits) with minimal modification to the code,
+ * to further my understanding of the program. Since this PR won't be merged, I haven't placed much references on
+ * individual files.
  */
 public class AddressBookParser {
 
@@ -58,6 +63,9 @@ public class AddressBookParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case RemarkCommand.COMMAND_WORD:
+            return new RemarkCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
