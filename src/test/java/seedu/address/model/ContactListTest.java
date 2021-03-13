@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.customer.Customer;
 
 
-public class AddressBookTest {
+public class ContactListTest {
 
     private final AddressBook addressBook = new AddressBook();
 

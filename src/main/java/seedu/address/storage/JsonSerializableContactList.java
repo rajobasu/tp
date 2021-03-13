@@ -17,26 +17,26 @@ import seedu.address.model.customer.Customer;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableContactList {
 
     public static final String MESSAGE_DUPLICATE_CUSTOMER = "Customers list contains duplicate customer(s).";
 
     private final List<JsonAdaptedCustomer> customers = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given customers.
+     * Constructs a {@code JsonSerializableContactList} with the given customers.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("customers") List<JsonAdaptedCustomer> customers) {
+    public JsonSerializableContactList(@JsonProperty("customers") List<JsonAdaptedCustomer> customers) {
         this.customers.addAll(customers);
     }
 
     /**
      * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableContactList}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableContactList(ReadOnlyAddressBook source) {
         customers.addAll(source.getCustomerList().stream().map(JsonAdaptedCustomer::new).collect(Collectors.toList()));
     }
 

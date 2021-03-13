@@ -17,13 +17,13 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonContactListStorage implements AddressBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonContactListStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonContactListStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -45,8 +45,8 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializableContactList> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableContactList.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -74,7 +74,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableContactList(addressBook), filePath);
     }
 
 }
