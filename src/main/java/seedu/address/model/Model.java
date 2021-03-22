@@ -47,14 +47,14 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Returns the AddressBook
+     * Returns the ContactList
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyContactList getAddressBook();
 
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyContactList addressBook);
 
     /**
      * Returns true if a customer with the same identity as {@code customer} exists in the address book.

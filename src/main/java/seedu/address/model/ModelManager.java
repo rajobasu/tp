@@ -19,26 +19,26 @@ import seedu.address.model.customer.Customer;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ContactList contactList;
     private final UserPrefs userPrefs;
     private final FilteredList<Customer> filteredCustomers;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given contactList and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyContactList addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.contactList = new ContactList(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCustomers = new FilteredList<>(this.addressBook.getCustomerList());
+        filteredCustomers = new FilteredList<>(this.contactList.getCustomerList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ContactList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,32 +76,32 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ContactList ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setAddressBook(ReadOnlyContactList addressBook) {
+        this.contactList.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyContactList getAddressBook() {
+        return contactList;
     }
 
     @Override
     public boolean hasCustomer(Customer customer) {
         requireNonNull(customer);
-        return addressBook.hasCustomer(customer);
+        return contactList.hasCustomer(customer);
     }
 
     @Override
     public void deleteCustomer(Customer target) {
-        addressBook.removeCustomer(target);
+        contactList.removeCustomer(target);
     }
 
     @Override
     public void addCustomer(Customer customer) {
-        addressBook.addCustomer(customer);
+        contactList.addCustomer(customer);
         updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setCustomer(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
 
-        addressBook.setCustomer(target, editedCustomer);
+        contactList.setCustomer(target, editedCustomer);
     }
 
     //=========== Filtered Customer List Accessors =============================================================
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return contactList.equals(other.contactList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCustomers.equals(other.filteredCustomers);
     }

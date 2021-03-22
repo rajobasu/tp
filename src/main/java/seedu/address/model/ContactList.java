@@ -11,7 +11,8 @@ import seedu.address.model.customer.UniqueCustomerList;
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by .isSameCustomer comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ContactList
+        implements ReadOnlyContactList {
 
     private final UniqueCustomerList customers;
 
@@ -27,13 +28,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         customers = new UniqueCustomerList();
     }
 
-    public AddressBook() {
+    public ContactList() {
     }
 
     /**
-     * Creates an AddressBook using the Customers in the {@code toBeCopied}
+     * Creates an ContactList using the Customers in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ContactList(ReadOnlyContactList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -49,9 +50,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ContactList} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyContactList newData) {
         requireNonNull(newData);
 
         setCustomers(newData.getCustomerList());
@@ -86,7 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code ContactList}. {@code key} must exist in the address book.
      */
     public void removeCustomer(Customer key) {
         customers.remove(key);
@@ -108,8 +109,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddressBook // instanceof handles nulls
-            && customers.equals(((AddressBook) other).customers));
+            || (other instanceof ContactList // instanceof handles nulls
+            && customers.equals(((ContactList) other).customers));
     }
 
     @Override

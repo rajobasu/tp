@@ -24,23 +24,23 @@ import seedu.address.testutil.CustomerBuilder;
 
 public class ContactListTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ContactList contactList = new ContactList();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getCustomerList());
+        assertEquals(Collections.emptyList(), contactList.getCustomerList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> contactList.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        ContactList newData = getTypicalAddressBook();
+        contactList.resetData(newData);
+        assertEquals(newData, contactList);
     }
 
     @Test
@@ -49,47 +49,48 @@ public class ContactListTest {
         Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Customer> newCustomers = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newCustomers);
+        ContactListStub newData = new ContactListStub(newCustomers);
 
-        assertThrows(DuplicateCustomerException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateCustomerException.class, () -> contactList.resetData(newData));
     }
 
     @Test
     public void hasCustomer_nullCustomer_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasCustomer(null));
+        assertThrows(NullPointerException.class, () -> contactList.hasCustomer(null));
     }
 
     @Test
     public void hasCustomer_customerNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasCustomer(ALICE));
+        assertFalse(contactList.hasCustomer(ALICE));
     }
 
     @Test
     public void hasCustomer_customerInAddressBook_returnsTrue() {
-        addressBook.addCustomer(ALICE);
-        assertTrue(addressBook.hasCustomer(ALICE));
+        contactList.addCustomer(ALICE);
+        assertTrue(contactList.hasCustomer(ALICE));
     }
 
     @Test
     public void hasCustomer_customerWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addCustomer(ALICE);
+        contactList.addCustomer(ALICE);
         Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasCustomer(editedAlice));
+        assertTrue(contactList.hasCustomer(editedAlice));
     }
 
     @Test
     public void getCustomerList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getCustomerList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> contactList.getCustomerList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose customers list can violate interface constraints.
+     * A stub ReadOnlyContactList whose customers list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ContactListStub
+            implements ReadOnlyContactList {
         private final ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Customer> customers) {
+        ContactListStub(Collection<Customer> customers) {
             this.customers.setAll(customers);
         }
 
